@@ -1,16 +1,15 @@
 package view.component;
 
-import entity.TodoList;
 import entity.TodoSection;
 
 import javax.swing.*;
 import java.awt.*;
 
-public class TodoButton extends JButton {
+public class TodoSectionButton extends JButton {
 
     private final TodoSection todoSection;
 
-    public TodoButton(String text, TodoSection todoSection) {
+    public TodoSectionButton(String text, TodoSection todoSection) {
         super(text);
         setFont(new Font("Arial", Font.PLAIN, 20));
         setBackground(Color.WHITE);

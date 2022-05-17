@@ -2,20 +2,22 @@ package view.page;
 
 import controller.TodoSection.TodoSectionController;
 import entity.TodoSection;
-import entity.User;
 import view.View;
-import view.component.TodoButton;
+import view.component.TodoSectionButton;
 
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionListener;
-import java.util.logging.Logger;
 
 public class TodoSectionPage implements Page {
     private final TodoSectionController todoSectionController;
     private View view;
     private JPanel mainPanel;
     private JPanel todoListPanel;
+    private JButton addButton;
+    private JButton editButton;
+    private boolean isEditing;
+    private JLabel titleLabel;
 
     public TodoSectionPage(TodoSectionController todoSectionController) {
         this.createUIComponents();
@@ -34,7 +36,7 @@ public class TodoSectionPage implements Page {
         mainPanel.setLayout(new GridBagLayout());
         mainPanel.setBackground(Color.WHITE);
 
-        JLabel titleLabel = new JLabel("Todolist");
+        this.titleLabel = new JLabel("Todolist");
         titleLabel.setFont(new Font("Arial", Font.BOLD, 40));
         titleLabel.setHorizontalAlignment(SwingConstants.CENTER);
         mainPanel.add(titleLabel, new GridBagConstraints(0, 0, 1, 1, 1, 2, GridBagConstraints.CENTER, GridBagConstraints.BOTH, new Insets(0, 0, 0, 0), 0, 0));
@@ -45,14 +47,14 @@ public class TodoSectionPage implements Page {
 
         actionPanel.add(Box.createHorizontalGlue());
 
-        JButton addButton = new JButton("Tambah");
+        this.addButton = new JButton("Tambah");
         addButton.setFont(new Font("Arial", Font.BOLD, 20));
         addButton.setBackground(Color.WHITE);
         addButton.setSize(new Dimension(100, 100));
         addButton.setAlignmentX(Component.CENTER_ALIGNMENT);
         actionPanel.add(addButton);
 
-        JButton editButton = new JButton("Update");
+        this.editButton = new JButton("Update");
         editButton.setFont(new Font("Arial", Font.BOLD, 20));
         editButton.setBackground(Color.WHITE);
         editButton.setSize(new Dimension(100, 100));
@@ -85,7 +87,19 @@ public class TodoSectionPage implements Page {
 
     @Override
     public void createActionListeners() {
+        this.addButton.addActionListener(e -> {
+            view.route("addTodoSection");
+        });
 
+        this.editButton.addActionListener(e -> {
+            if (this.isEditing) {
+                this.isEditing = false;
+                this.titleLabel.setText("Todolist");
+            } else {
+                this.isEditing = true;
+                this.titleLabel.setText("Todolist (Edit Mode)");
+            }
+        });
     }
 
     @Override
@@ -98,18 +112,24 @@ public class TodoSectionPage implements Page {
         this.todoListPanel.removeAll();
 
         ActionListener todoButtonListener = e -> {
-            TodoButton todoButton = (TodoButton) e.getSource();
-            TodoSection todoSection = todoButton.getTodoSection();
-            view.addDataView("idTodoSection", String.valueOf(todoSection.getId()));
-            view.addDataView("todoSectionName", todoSection.getName());
-            view.route("todoList");
+            TodoSectionButton todoSectionButton = (TodoSectionButton) e.getSource();
+            TodoSection todoSection = todoSectionButton.getTodoSection();
+            this.view.addDataView("idTodoSection", String.valueOf(todoSection.getId()));
+            this.view.addDataView("todoSectionName", todoSection.getName());
+            if (this.isEditing) {
+                this.isEditing = false;
+                this.titleLabel.setText("Todolist");
+                this.view.route("editTodoSection");
+            } else {
+                this.view.route("todoList");
+            }
         };
 
         TodoSection[] todoSections = this.todoSectionController.getAllTodoSections(view.getUserLoggedIn());
         for (TodoSection todoSection : todoSections) {
-            TodoButton todoButton = new TodoButton(todoSection.getName(), todoSection);
-            todoButton.addActionListener(todoButtonListener);
-            this.todoListPanel.add(todoButton);
+            TodoSectionButton todoSectionButton = new TodoSectionButton(todoSection.getName(), todoSection);
+            todoSectionButton.addActionListener(todoButtonListener);
+            this.todoListPanel.add(todoSectionButton);
         }
 
         this.todoListPanel.revalidate();

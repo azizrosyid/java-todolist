@@ -14,10 +14,7 @@ import repository.User.UserRepository;
 import repository.User.UserRepositoryImpl;
 import util.DatabaseUtil;
 import view.View;
-import view.page.LoginPage;
-import view.page.RegisterPage;
-import view.page.TodoListPage;
-import view.page.TodoSectionPage;
+import view.page.*;
 
 import javax.swing.*;
 import java.sql.Connection;
@@ -39,12 +36,16 @@ public class Main {
         RegisterPage registerPage = new RegisterPage(userContoller);
         TodoSectionPage todoSectionPage = new TodoSectionPage(todoSectionController);
         TodoListPage todoListPage = new TodoListPage(todolistController);
+        AddTodoSectionPage addTodoSectionPage = new AddTodoSectionPage(todoSectionController);
+        EditTodoSectionPage editTodoSectionPage = new EditTodoSectionPage(todoSectionController);
 
         View view = new View();
         view.addPage("login", loginPage);
         view.addPage("register", registerPage);
         view.addPage("todoSection", todoSectionPage);
         view.addPage("todoList", todoListPage);
+        view.addPage("addTodoSection", addTodoSectionPage);
+        view.addPage("editTodoSection", editTodoSectionPage);
 
         SwingUtilities.invokeLater(() -> view.start());
     }

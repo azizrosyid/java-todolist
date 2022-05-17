@@ -8,7 +8,5 @@ public interface TodoListRepository {
 
     boolean removeTodoList(TodoList todoList);
 
-    void updateTodoList(TodoList todoList);
-
     TodoList[] getAllTodoListsByUser(TodoSection todoSection);
 }

@@ -50,11 +50,6 @@ public class TodoListRepositoryImpl implements TodoListRepository {
     }
 
     @Override
-    public void updateTodoList(TodoList todoList) {
-
-    }
-
-    @Override
     public TodoList[] getAllTodoListsByUser(TodoSection todoSection) {
         String sql = "SELECT * FROM todolist WHERE id_section = ?";
         ArrayList<TodoList> todoLists = new ArrayList<>();
