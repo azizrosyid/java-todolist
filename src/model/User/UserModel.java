@@ -1,8 +1,8 @@
-package repository.User;
+package model.User;
 
 import entity.User;
 
-public interface UserRepository {
+public interface UserModel {
     int addUser(User user);
 
     boolean updateUser(User user);

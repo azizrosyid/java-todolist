@@ -4,14 +4,12 @@ import controller.TodolistController.TodolistController;
 import controller.TodolistController.TodolistControllerImpl;
 import controller.UserController.UserContoller;
 import controller.UserController.UserContollerImpl;
-import entity.TodoList;
-import entity.TodoSection;
-import repository.TodoList.TodoListRepository;
-import repository.TodoList.TodoListRepositoryImpl;
-import repository.TodoSection.TodoSectionRepository;
-import repository.TodoSection.TodoSectionRepositoryImpl;
-import repository.User.UserRepository;
-import repository.User.UserRepositoryImpl;
+import model.TodoList.TodoListModel;
+import model.TodoList.TodoListModelImpl;
+import model.TodoSection.TodoSectionModel;
+import model.TodoSection.TodoSectionModelImpl;
+import model.User.UserModel;
+import model.User.UserModelImpl;
 import util.DatabaseUtil;
 import view.View;
 import view.page.*;
@@ -23,14 +21,14 @@ public class Main {
 
     public static void main(String[] args) {
         Connection dbConnection = DatabaseUtil.getConnection();
-        TodoListRepository todoListRepository = new TodoListRepositoryImpl(dbConnection);
-        TodolistController todolistController = new TodolistControllerImpl(todoListRepository);
+        TodoListModel todoListModel = new TodoListModelImpl(dbConnection);
+        TodolistController todolistController = new TodolistControllerImpl(todoListModel);
 
-        UserRepository userRepository = new UserRepositoryImpl(dbConnection);
-        UserContoller userContoller = new UserContollerImpl(userRepository);
+        UserModel userModel = new UserModelImpl(dbConnection);
+        UserContoller userContoller = new UserContollerImpl(userModel);
 
-        TodoSectionRepository todoSectionRepository = new TodoSectionRepositoryImpl(dbConnection);
-        TodoSectionController todoSectionController = new TodoSectionControllerImpl(todoSectionRepository);
+        TodoSectionModel todoSectionModel = new TodoSectionModelImpl(dbConnection);
+        TodoSectionController todoSectionController = new TodoSectionControllerImpl(todoSectionModel);
 
         LoginPage loginPage = new LoginPage(userContoller);
         RegisterPage registerPage = new RegisterPage(userContoller);
@@ -47,6 +45,6 @@ public class Main {
         view.addPage("addTodoSection", addTodoSectionPage);
         view.addPage("editTodoSection", editTodoSectionPage);
 
-        SwingUtilities.invokeLater(() -> view.start());
+        SwingUtilities.invokeLater(view::start);
     }
 }

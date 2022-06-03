@@ -6,7 +6,6 @@ public class TodoSection {
     private int id;
     private String name;
     private User owner;
-    private List<TodoList> todoLists;
 
     public TodoSection(){}
 
@@ -37,10 +36,6 @@ public class TodoSection {
 
     public void setOwner(User owner) {
         this.owner = owner;
-    }
-
-    public List<TodoList> getTodoLists() {
-        return todoLists;
     }
 
 

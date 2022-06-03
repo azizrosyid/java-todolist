@@ -1,4 +1,4 @@
-package repository.TodoSection;
+package model.TodoSection;
 
 import entity.TodoSection;
 import entity.User;
@@ -8,10 +8,10 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.util.ArrayList;
 
-public class TodoSectionRepositoryImpl implements TodoSectionRepository {
+public class TodoSectionModelImpl implements TodoSectionModel {
     private final Connection connection;
 
-    public TodoSectionRepositoryImpl(Connection connection) {
+    public TodoSectionModelImpl(Connection connection) {
         this.connection = connection;
     }
 

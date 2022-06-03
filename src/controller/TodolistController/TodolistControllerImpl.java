@@ -2,13 +2,13 @@ package controller.TodolistController;
 
 import entity.TodoList;
 import entity.TodoSection;
-import repository.TodoList.TodoListRepository;
+import model.TodoList.TodoListModel;
 
 public class TodolistControllerImpl implements TodolistController {
-    public TodoListRepository todoListRepository;
+    public TodoListModel todoListModel;
 
-    public TodolistControllerImpl(TodoListRepository todoListRepository) {
-        this.todoListRepository = todoListRepository;
+    public TodolistControllerImpl(TodoListModel todoListModel) {
+        this.todoListModel = todoListModel;
     }
 
 
@@ -17,7 +17,7 @@ public class TodolistControllerImpl implements TodolistController {
         try {
             TodoSection todoSection = new TodoSection();
             todoSection.setId(idSection);
-            return todoListRepository.getAllTodoListsByUser(todoSection);
+            return todoListModel.getAllTodoListsBySection(todoSection);
         } catch (Exception e) {
             throw new RuntimeException(e);
         }
@@ -30,7 +30,7 @@ public class TodolistControllerImpl implements TodolistController {
             todoList.setTodo(name);
             todoList.setIdSection(idSection);
 
-            return todoListRepository.addTodoList(todoList);
+            return todoListModel.addTodoList(todoList);
         } catch (Exception e) {
             throw new RuntimeException(e);
         }
@@ -39,7 +39,7 @@ public class TodolistControllerImpl implements TodolistController {
     @Override
     public boolean removeTodolist(TodoList todoList) {
         try {
-            return todoListRepository.removeTodoList(todoList);
+            return todoListModel.removeTodoList(todoList);
         } catch (Exception e) {
             throw new RuntimeException(e);
         }

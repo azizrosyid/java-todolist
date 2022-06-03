@@ -1,9 +1,9 @@
-package repository.TodoSection;
+package model.TodoSection;
 
 import entity.TodoSection;
 import entity.User;
 
-public interface TodoSectionRepository {
+public interface TodoSectionModel {
     int addTodoSection(TodoSection todoSection);
 
     TodoSection[] getAllTodoSections(User user);

@@ -3,12 +3,11 @@ package test.user;
 import controller.UserController.UserContoller;
 import controller.UserController.UserContollerImpl;
 import entity.User;
-import repository.User.UserRepository;
-import repository.User.UserRepositoryImpl;
+import model.User.UserModel;
+import model.User.UserModelImpl;
 import util.DatabaseUtil;
 import util.EncryptionUtil;
 
-import javax.naming.AuthenticationException;
 import java.sql.Connection;
 
 public class TestUserController {
@@ -23,8 +22,8 @@ public class TestUserController {
 
     public TestUserController() {
         Connection connection = DatabaseUtil.getConnection();
-        UserRepository userRepository = new UserRepositoryImpl(connection);
-        this.userContoller = new UserContollerImpl(userRepository);
+        UserModel userModel = new UserModelImpl(connection);
+        this.userContoller = new UserContollerImpl(userModel);
     }
 
     public void testRegister() {

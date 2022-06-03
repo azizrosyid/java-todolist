@@ -1,12 +1,12 @@
-package repository.TodoList;
+package model.TodoList;
 
 import entity.TodoList;
 import entity.TodoSection;
 
-public interface TodoListRepository {
+public interface TodoListModel {
     TodoList addTodoList(TodoList todoList);
 
     boolean removeTodoList(TodoList todoList);
 
-    TodoList[] getAllTodoListsByUser(TodoSection todoSection);
+    TodoList[] getAllTodoListsBySection(TodoSection todoSection);
 }

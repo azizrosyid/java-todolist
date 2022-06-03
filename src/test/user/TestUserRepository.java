@@ -1,8 +1,8 @@
 package test.user;
 
 import entity.User;
-import repository.User.UserRepository;
-import repository.User.UserRepositoryImpl;
+import model.User.UserModel;
+import model.User.UserModelImpl;
 import util.DatabaseUtil;
 import util.EncryptionUtil;
 
@@ -20,22 +20,22 @@ public class TestUserRepository {
 
     public static void testAddUser() {
         Connection connection = DatabaseUtil.getConnection();
-        UserRepository userRepository = new UserRepositoryImpl(connection);
+        UserModel userModel = new UserModelImpl(connection);
 
         User user = new User();
         String username = "test_user_" + (int) (Math.random() * 100000);
         user.setUsername(username);
         user.setPassword(EncryptionUtil.encryptPassword(username));
 
-        long result = userRepository.addUser(user);
+        long result = userModel.addUser(user);
         System.out.println("Add user result: " + result);
 
     }
 
     public static void testGetAllUsers() {
         Connection connection = DatabaseUtil.getConnection();
-        UserRepository userRepository = new UserRepositoryImpl(connection);
-        User[] users = userRepository.getAllUsers();
+        UserModel userModel = new UserModelImpl(connection);
+        User[] users = userModel.getAllUsers();
         for (User user : users) {
             System.out.println(user.getId() + " " + user.getUsername() + " " + user.getPassword());
         }
@@ -43,65 +43,65 @@ public class TestUserRepository {
 
     public static void testLoginUser() {
         Connection connection = DatabaseUtil.getConnection();
-        UserRepository userRepository = new UserRepositoryImpl(connection);
+        UserModel userModel = new UserModelImpl(connection);
 
         User user = new User();
         String username = "test_user_" + (int) (Math.random() * 100000);
         user.setUsername(username);
         user.setPassword(EncryptionUtil.encryptPassword(username));
 
-        long addUserResult = userRepository.addUser(user);
+        long addUserResult = userModel.addUser(user);
 
-        int isLogin = userRepository.loginUser(user);
+        int isLogin = userModel.loginUser(user);
         System.out.println("Login result: " + isLogin);
     }
 
     public static void testFailedLoginUser() {
         Connection connection = DatabaseUtil.getConnection();
-        UserRepository userRepository = new UserRepositoryImpl(connection);
+        UserModel userModel = new UserModelImpl(connection);
 
         User user = new User();
         String username = "test_user_" + (int) (Math.random() * 100000);
         user.setUsername(username);
         user.setPassword(EncryptionUtil.encryptPassword(username));
 
-        int isLogin = userRepository.loginUser(user);
+        int isLogin = userModel.loginUser(user);
         System.out.println("Login failed result: " + isLogin);
     }
 
     public static void testUpdateUser() {
         Connection connection = DatabaseUtil.getConnection();
-        UserRepository userRepository = new UserRepositoryImpl(connection);
+        UserModel userModel = new UserModelImpl(connection);
 
         User user = new User();
         String username = "test_user_" + (int) (Math.random() * 100000);
         user.setUsername(username);
         user.setPassword(EncryptionUtil.encryptPassword(username));
 
-        long addUserResult = userRepository.addUser(user);
+        long addUserResult = userModel.addUser(user);
 
         user.setId((int) addUserResult);
         user.setUsername("test_user_" + (int) (Math.random() * 100000));
         user.setPassword(EncryptionUtil.encryptPassword(username));
 
-        Boolean updateUserResult = userRepository.updateUser(user);
+        boolean updateUserResult = userModel.updateUser(user);
         System.out.println("Update user result: " + updateUserResult);
     }
 
     public static void testDeleteUser() {
         Connection connection = DatabaseUtil.getConnection();
-        UserRepository userRepository = new UserRepositoryImpl(connection);
+        UserModel userModel = new UserModelImpl(connection);
 
         User user = new User();
         String username = "test_user_" + (int) (Math.random() * 100000);
         user.setUsername(username);
         user.setPassword(EncryptionUtil.encryptPassword(username));
 
-        long addUserResult = userRepository.addUser(user);
+        long addUserResult = userModel.addUser(user);
 
         user.setId((int) addUserResult);
 
-        Boolean deleteUserResult = userRepository.deleteUser(user);
+        boolean deleteUserResult = userModel.deleteUser(user);
         System.out.println("Delete user result: " + deleteUserResult);
     }
 }

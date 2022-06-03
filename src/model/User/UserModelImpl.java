@@ -1,4 +1,4 @@
-package repository.User;
+package model.User;
 
 import entity.User;
 
@@ -8,10 +8,10 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 
-public class UserRepositoryImpl implements UserRepository {
+public class UserModelImpl implements UserModel {
     private final Connection connection;
 
-    public UserRepositoryImpl(Connection connection) {
+    public UserModelImpl(Connection connection) {
         this.connection = connection;
     }
 
@@ -81,7 +81,7 @@ public class UserRepositoryImpl implements UserRepository {
                 user.setPassword(resultSet.getString("password"));
                 users.add(user);
             }
-            return users.toArray(new User[users.size()]);
+            return users.toArray(new User[0]);
         } catch (SQLException e) {
             throw new RuntimeException(e);
         }

@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="SqlDialectMappings">
-    <file url="file://$PROJECT_DIR$/src/repository/TodoList/TodoListRepositoryImpl.java" dialect="GenericSQL" />
-    <file url="file://$PROJECT_DIR$/src/repository/TodoSection/TodoSectionRepositoryImpl.java" dialect="GenericSQL" />
+    <file url="file://$PROJECT_DIR$/src/model/TodoList/TodoListModelImpl.java" dialect="GenericSQL" />
+    <file url="file://$PROJECT_DIR$/src/model/TodoSection/TodoSectionModelImpl.java" dialect="GenericSQL" />
   </component>
 </project>

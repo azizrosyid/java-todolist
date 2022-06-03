@@ -1,4 +1,4 @@
-package repository.TodoList;
+package model.TodoList;
 
 import entity.TodoList;
 import entity.TodoSection;
@@ -6,11 +6,11 @@ import entity.TodoSection;
 import java.sql.*;
 import java.util.ArrayList;
 
-public class TodoListRepositoryImpl implements TodoListRepository {
+public class TodoListModelImpl implements TodoListModel {
 
     private final Connection connection;
 
-    public TodoListRepositoryImpl(Connection connection) {
+    public TodoListModelImpl(Connection connection) {
         this.connection = connection;
     }
 
@@ -50,7 +50,7 @@ public class TodoListRepositoryImpl implements TodoListRepository {
     }
 
     @Override
-    public TodoList[] getAllTodoListsByUser(TodoSection todoSection) {
+    public TodoList[] getAllTodoListsBySection(TodoSection todoSection) {
         String sql = "SELECT * FROM todolist WHERE id_section = ?";
         ArrayList<TodoList> todoLists = new ArrayList<>();
         try {

@@ -1,18 +1,16 @@
 package controller.UserController;
 
 import entity.User;
-import repository.User.UserRepository;
+import model.User.UserModel;
 import util.EncryptionUtil;
 
 import javax.naming.AuthenticationException;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 
 public class UserContollerImpl implements UserContoller {
-    private final UserRepository userRepository;
+    private final UserModel userModel;
 
-    public UserContollerImpl(UserRepository userRepository) {
-        this.userRepository = userRepository;
+    public UserContollerImpl(UserModel userModel) {
+        this.userModel = userModel;
     }
 
     @Override
@@ -20,7 +18,7 @@ public class UserContollerImpl implements UserContoller {
         try {
             String encryptedPassword = EncryptionUtil.encryptPassword(password);
             User user = new User(username, encryptedPassword);
-            int idUser = userRepository.loginUser(user);
+            int idUser = userModel.loginUser(user);
             if (idUser == -1) {
                 throw new AuthenticationException("Username or password is incorrect");
             }
@@ -39,7 +37,7 @@ public class UserContollerImpl implements UserContoller {
         try {
             String encryptedPassword = EncryptionUtil.encryptPassword(password);
             User user = new User(username, encryptedPassword);
-            long idUser = userRepository.addUser(user);
+            long idUser = userModel.addUser(user);
             user.setId((int) idUser);
             return user;
         } catch (Exception e) {
